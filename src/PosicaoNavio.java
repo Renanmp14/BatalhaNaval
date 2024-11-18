@@ -82,22 +82,20 @@ public class PosicaoNavio {
         JSONObject navioJSON = new JSONObject();
         navioJSON.put("tipo", navio.getTipo());
 
-        // Ajuste para garantir que as posições sejam arrays simples
+        // Ajustar a forma como as posições são adicionadas para evitar a formatação com quebras de linha
         JSONArray posicoesArray = new JSONArray();
         for (int[] posicao : posicoes) {
-            JSONArray posicaoJSON = new JSONArray();
-            posicaoJSON.put(posicao[0]);
-            posicaoJSON.put(posicao[1]);
-            posicoesArray.put(posicaoJSON);
+            posicoesArray.put(new JSONArray(posicao));
         }
         navioJSON.put("posicoes", posicoesArray);
 
         naviosArray.put(navioJSON);
         return true;
     }
+
     public static void salvarNaviosEmJSON(JSONArray naviosArray, String caminhoArquivo) {
         try (FileWriter file = new FileWriter(caminhoArquivo)) {
-            file.write(naviosArray.toString(4));
+            file.write(naviosArray.toString());
             System.out.println("Arquivo JSON salvo como: " + caminhoArquivo);
         } catch (IOException e) {
             e.printStackTrace();
