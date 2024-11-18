@@ -25,6 +25,27 @@ public class Comunicacao {
         writer = new PrintWriter(socket.getOutputStream(),true);
     }
 
+    public void sendFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        BufferedReader fileReader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = fileReader.readLine()) != null) {
+            writer.println(line);
+        }
+        writer.println("EOF");
+        fileReader.close();
+    }
+    public void receiveFile(String savePath) throws IOException {
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(savePath));
+        String line;
+        while (!(line = reader.readLine()).equals("EOF")) {
+            fileWriter.write(line);
+            fileWriter.newLine();
+        }
+        fileWriter.close();
+        System.out.println("Arquivo recebido e salvo em: " + savePath);
+    }
+
     public void sendMessage(String message){
         if (writer != null){
             writer.println(message);

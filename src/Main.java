@@ -1,17 +1,27 @@
 import java.util.Scanner;
+
+import org.json.JSONArray;
 public class Main {
     private static final int PORT = 50000;
     private static boolean running = true;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Comunicacao comunicacao = new Comunicacao();
-
+        String ipMaquina = "192.168.0.211";
+        String arquivo = "navios_" + ipMaquina + "json";
         try {
             System.out.println("Digite 'server' para iniciar como servidor ou 'client' para conectar:");
             String mode = scanner.nextLine();
 
             if (mode.equalsIgnoreCase("server")) {
                 comunicacao.startServer(PORT);
+
+                JSONArray naviosServer = PosicaoNavio.gerarPosicoesNavios();
+                PosicaoNavio.salvarNaviosEmJSON(naviosServer, arquivo);
+
+                comunicacao.sendFile(arquivo);
+
             } else if (mode.equalsIgnoreCase("client")) {
                 System.out.print("Digite o IP do servidor: ");
                 String ip = scanner.nextLine();
