@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Troca de mensagem, teste 1">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json_20240205.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json_20240303_javadoc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Navio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PosicaoNavio.java" afterDir="false" />
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Criar arquivo json e só servidor manda.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jogo Batalha Naval.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Jogo Batalha Naval.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Comunicacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comunicacao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,6 +46,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -81,7 +76,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731877836838</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Criar arquivo json e só servidor manda.">
+      <option name="closed" value="true" />
+      <created>1731888291691</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731888291691</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -97,6 +100,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Troca de mensagem, teste 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Troca de mensagem, teste 1" />
+    <MESSAGE value="Criar arquivo json e só servidor manda." />
+    <option name="LAST_COMMIT_MESSAGE" value="Criar arquivo json e só servidor manda." />
   </component>
 </project>

@@ -21,11 +21,20 @@ public class Main {
                 PosicaoNavio.salvarNaviosEmJSON(naviosServer, arquivo);
 
                 comunicacao.sendFile(arquivo);
+                comunicacao.receiveFile(".");
+                System.out.println("Arquivos trocados! Iniciando troca de mensagens...");
 
             } else if (mode.equalsIgnoreCase("client")) {
                 System.out.print("Digite o IP do servidor: ");
                 String ip = scanner.nextLine();
                 comunicacao.startClient(ip, PORT);
+
+                comunicacao.receiveFile(".");
+
+                JSONArray naviosCliente = PosicaoNavio.gerarPosicoesNavios();
+                PosicaoNavio.salvarNaviosEmJSON(naviosCliente,arquivo);
+                System.out.println("Arquivos trocados! Iniciando troca de mensagens...");
+
             } else {
                 System.out.println("Modo inválido! Use 'server' ou 'client'.");
                 return;

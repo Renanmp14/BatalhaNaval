@@ -27,6 +27,15 @@ public class Comunicacao {
 
     public void sendFile(String filePath) throws IOException {
         File file = new File(filePath);
+        if (!file.exists()) {
+            System.out.println("Arquivo não encontrado: " + filePath);
+            return;
+        }
+
+        // Envia o nome do arquivo
+        writer.println(file.getName());
+
+        // Envia o conteúdo do arquivo
         BufferedReader fileReader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = fileReader.readLine()) != null) {
@@ -34,16 +43,26 @@ public class Comunicacao {
         }
         writer.println("EOF");
         fileReader.close();
+        System.out.println("Arquivo enviado: " + file.getName());
     }
-    public void receiveFile(String savePath) throws IOException {
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(savePath));
+
+    // Recebe um arquivo e o salva no caminho especificado
+    public void receiveFile(String saveDirectory) throws IOException {
+        // Lê o nome do arquivo enviado
+        String fileName = reader.readLine();
+
+        // Cria o arquivo no diretório de destino
+        File file = new File(saveDirectory, fileName);
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
+
+        // Lê o conteúdo do arquivo
         String line;
         while (!(line = reader.readLine()).equals("EOF")) {
             fileWriter.write(line);
             fileWriter.newLine();
         }
         fileWriter.close();
-        System.out.println("Arquivo recebido e salvo em: " + savePath);
+        System.out.println("Arquivo recebido e salvo como: " + file.getPath());
     }
 
     public void sendMessage(String message){
