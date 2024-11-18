@@ -37,31 +37,20 @@ public class PosicaoNavio {
             while (!posicionado) {
                 int linha = random.nextInt(TAMANHO_TABULEIRO);
                 int coluna = random.nextInt(TAMANHO_TABULEIRO);
-                boolean orientacaoHorizontal = random.nextBoolean();
 
-                if (podePosicionarNavio(linha, coluna, tamanho, orientacaoHorizontal)) {
-                    List<int[]> posicoes = new ArrayList<>();
-                    for (int i = 0; i < tamanho; i++) {
-                        if (orientacaoHorizontal) {
-                            tabuleiro[linha][coluna + i] = 'N';
-                            posicoes.add(new int[]{linha, coluna + i});
-                        } else {
-                            tabuleiro[linha + i][coluna] = 'N';
-                            posicoes.add(new int[]{linha + i, coluna});
-                        }
-                    }
-
-                    JSONObject navioJSON = new JSONObject();
-                    navioJSON.put("tipo", tipo);
-                    navioJSON.put("posicoes", posicoes);
-                    naviosArray.put(navioJSON);
-
-                    posicionado = true;
+                // Tentativa de posicionar na horizontal
+                if (podePosicionarNavio(linha, coluna, tamanho, true)) {
+                    posicionado = posicionarNavio(linha, coluna, tamanho, true, navio, naviosArray);
+                }
+                // Se não foi possível na horizontal, tenta na vertical
+                if (!posicionado && podePosicionarNavio(linha, coluna, tamanho, false)) {
+                    posicionado = posicionarNavio(linha, coluna, tamanho, false, navio, naviosArray);
                 }
             }
         }
         return naviosArray;
     }
+
     private static boolean podePosicionarNavio(int linha, int coluna, int tamanho, boolean orientacaoHorizontal) {
         if (orientacaoHorizontal) {
             if (coluna + tamanho > TAMANHO_TABULEIRO) return false;
@@ -74,6 +63,36 @@ public class PosicaoNavio {
                 if (tabuleiro[linha + i][coluna] != '-') return false;
             }
         }
+        return true;
+    }
+
+    private static boolean posicionarNavio(int linha, int coluna, int tamanho, boolean orientacaoHorizontal, Navio navio, JSONArray naviosArray) {
+        List<int[]> posicoes = new ArrayList<>();
+        for (int i = 0; i < tamanho; i++) {
+            if (orientacaoHorizontal) {
+                tabuleiro[linha][coluna + i] = 'N';
+                posicoes.add(new int[]{linha, coluna + i});
+            } else {
+                tabuleiro[linha + i][coluna] = 'N';
+                posicoes.add(new int[]{linha + i, coluna});
+            }
+        }
+
+        // Criação do JSON para o navio
+        JSONObject navioJSON = new JSONObject();
+        navioJSON.put("tipo", navio.getTipo());
+
+        // Ajuste para garantir que as posições sejam arrays simples
+        JSONArray posicoesArray = new JSONArray();
+        for (int[] posicao : posicoes) {
+            JSONArray posicaoJSON = new JSONArray();
+            posicaoJSON.put(posicao[0]);
+            posicaoJSON.put(posicao[1]);
+            posicoesArray.put(posicaoJSON);
+        }
+        navioJSON.put("posicoes", posicoesArray);
+
+        naviosArray.put(navioJSON);
         return true;
     }
     public static void salvarNaviosEmJSON(JSONArray naviosArray, String caminhoArquivo) {

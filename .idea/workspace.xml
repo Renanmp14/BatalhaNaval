@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Criar arquivo json e só servidor manda.">
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="primeiro teste de troca de arquivos json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PosicaoNavio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PosicaoNavio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +85,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731888291691</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="primeiro teste de troca de arquivos json">
+      <option name="closed" value="true" />
+      <created>1731890035711</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731890035711</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -101,6 +110,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Troca de mensagem, teste 1" />
     <MESSAGE value="Criar arquivo json e só servidor manda." />
-    <option name="LAST_COMMIT_MESSAGE" value="Criar arquivo json e só servidor manda." />
+    <MESSAGE value="primeiro teste de troca de arquivos json" />
+    <option name="LAST_COMMIT_MESSAGE" value="primeiro teste de troca de arquivos json" />
   </component>
 </project>

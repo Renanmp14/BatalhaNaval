@@ -33,6 +33,7 @@ public class Main {
 
                 JSONArray naviosCliente = PosicaoNavio.gerarPosicoesNavios();
                 PosicaoNavio.salvarNaviosEmJSON(naviosCliente,arquivo);
+                comunicacao.sendFile(arquivo);
                 System.out.println("Arquivos trocados! Iniciando troca de mensagens...");
 
             } else {
