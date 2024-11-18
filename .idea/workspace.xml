@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="correção no json e no envio do cliente" />
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="correção no json 2">
+      <change beforePath="$PROJECT_DIR$/src/PosicaoNavio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PosicaoNavio.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +99,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731890852764</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="correção no json 2">
+      <option name="closed" value="true" />
+      <created>1731891305940</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731891305940</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -116,6 +126,7 @@
     <MESSAGE value="Criar arquivo json e só servidor manda." />
     <MESSAGE value="primeiro teste de troca de arquivos json" />
     <MESSAGE value="correção no json e no envio do cliente" />
-    <option name="LAST_COMMIT_MESSAGE" value="correção no json e no envio do cliente" />
+    <MESSAGE value="correção no json 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="correção no json 2" />
   </component>
 </project>

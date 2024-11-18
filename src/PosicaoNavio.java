@@ -95,10 +95,42 @@ public class PosicaoNavio {
 
     public static void salvarNaviosEmJSON(JSONArray naviosArray, String caminhoArquivo) {
         try (FileWriter file = new FileWriter(caminhoArquivo)) {
-            file.write(naviosArray.toString());
+            String jsonFormatado = formatarJSON(naviosArray);
+            file.write(jsonFormatado);
             System.out.println("Arquivo JSON salvo como: " + caminhoArquivo);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String formatarJSON(JSONArray naviosArray) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[\n");
+
+        for (int i = 0; i < naviosArray.length(); i++) {
+            JSONObject navio = naviosArray.getJSONObject(i);
+            builder.append("    {\n");
+            builder.append("        \"tipo\": \"").append(navio.getString("tipo")).append("\",\n");
+            builder.append("        \"posicoes\": [");
+
+            JSONArray posicoes = navio.getJSONArray("posicoes");
+            for (int j = 0; j < posicoes.length(); j++) {
+                JSONArray posicao = posicoes.getJSONArray(j);
+                builder.append("[").append(posicao.getInt(0)).append(", ").append(posicao.getInt(1)).append("]");
+                if (j < posicoes.length() - 1) {
+                    builder.append(", ");
+                }
+            }
+
+            builder.append("]\n");
+            builder.append("    }");
+            if (i < naviosArray.length() - 1) {
+                builder.append(",");
+            }
+            builder.append("\n");
+        }
+
+        builder.append("]");
+        return builder.toString();
     }
 }
