@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Primeira tentativa do jogo funcionar, com tabuleiro">
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Troca na comunicação no jogo e na exibiçao quando servidor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732120829883</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Troca na comunicação no jogo e na exibiçao quando servidor">
+      <option name="closed" value="true" />
+      <created>1732122726014</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732122726014</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -155,6 +163,7 @@
     <MESSAGE value="correção no json 3" />
     <MESSAGE value="Troca de envio e comuncação de aquivo json" />
     <MESSAGE value="Primeira tentativa do jogo funcionar, com tabuleiro" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primeira tentativa do jogo funcionar, com tabuleiro" />
+    <MESSAGE value="Troca na comunicação no jogo e na exibiçao quando servidor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Troca na comunicação no jogo e na exibiçao quando servidor" />
   </component>
 </project>

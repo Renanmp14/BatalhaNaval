@@ -12,6 +12,14 @@ public class Main {
         String ipMaquina = "192.168.0.211";
         String arquivo = "navios_" + ipMaquina + ".json";
         String arquivoAdversario = "ArquivoAdversario.json";
+
+        Tabuleiro tabuleiro = new Tabuleiro(false);
+        Tabuleiro tabuleiroAdversario = new Tabuleiro(true);
+        String[] meusNavios = new String[10]; // Array para armazenar posições dos navios
+        String[] adversarioNavio = new String[10]; // Array para o navio do adversário
+        String[] envioAtaque = new String[100]; // Array para armazenar ataques enviados
+        String[] envioAdversario = new String[100]; // Array para armazenar ataques recebidos
+
         try {
             System.out.println("Digite 'server' para iniciar como servidor ou 'client' para conectar:");
             String mode = scanner.nextLine();
@@ -46,14 +54,13 @@ public class Main {
             }
 
 
-            // Criar tabuleiros para servidor e cliente
-            Tabuleiro tabuleiro = new Tabuleiro(false);  // false pois o adversário não deve ver os navios
-            tabuleiro.carregarTabuleiroDeJSON(arquivo);  // Carrega a tabela de navios
-
-            Tabuleiro tabuleiroAdversario = new Tabuleiro(true);  // true pois o servidor/cliente verá os navios do adversário
+            // Carregar e exibir os tabuleiros após o envio dos arquivos
+            tabuleiro.carregarTabuleiroDeJSON(arquivo);
             tabuleiroAdversario.carregarTabuleiroDeJSON(arquivoAdversario);
+            tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
+            tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
 
-            // A thread para receber ataques
+            // Thread para receber ataques
             new Thread(() -> {
                 while (running) {
                     try {
@@ -64,15 +71,10 @@ public class Main {
                             int linha = Integer.parseInt(pos[0]);
                             int coluna = Integer.parseInt(pos[1]);
                             char resultado = pos[2].charAt(0);
-
-                            // Atualiza o tabuleiro do adversário após receber o ataque
+                            envioAdversario[linha * 10 + coluna] = message; // Armazena a posição atacada
                             tabuleiroAdversario.processarAtaque(linha, coluna);
-
-                            // Exibe os tabuleiros após o ataque
                             tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
-
-                            // Envia a confirmação do ataque de volta
-                            comunicacao.sendMessage(linha + " " + coluna + " " + resultado);
+                            comunicacao.sendMessage(linha + " " + coluna + " " + resultado); // Envia resultado
                         }
                     } catch (Exception e) {
                         System.out.println("Conexão encerrada.");
@@ -81,7 +83,7 @@ public class Main {
                 }
             }).start();
 
-            // Loop principal para o envio de ataques
+            // Loop para envio de ataques
             while (running) {
                 String message = scanner.nextLine();
                 if (message.equalsIgnoreCase("exit")) {
@@ -92,15 +94,10 @@ public class Main {
                 String[] pos = message.split(" ");
                 int linha = Integer.parseInt(pos[0]);
                 int coluna = Integer.parseInt(pos[1]);
-
-                // Processa o ataque e envia
                 char resultado = tabuleiro.processarAtaque(linha, coluna);
+                envioAtaque[linha * 10 + coluna] = message; // Armazena o ataque enviado
                 comunicacao.sendMessage(linha + " " + coluna + " " + resultado);
-
-                // Atualiza o tabuleiro do jogador após o ataque
                 tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
-
-                // Atualiza o tabuleiro do adversário na tela
                 tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
 
                 // Verifica se o jogo acabou
@@ -109,7 +106,6 @@ public class Main {
                     running = false;
                 }
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();

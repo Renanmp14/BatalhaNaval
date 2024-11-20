@@ -1,9 +1,6 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.FileReader;
-import java.io.BufferedReader;
-
 public class Tabuleiro {
     private final char[][] grade;
     private boolean mostrarNavios;
@@ -18,13 +15,12 @@ public class Tabuleiro {
         }
     }
 
+    // Método para carregar o tabuleiro do arquivo JSON
     public void carregarTabuleiroDeJSON(String nomeArquivo) {
         JSONArray navios = carregarJSON(nomeArquivo);
-
         for (int i = 0; i < navios.length(); i++) {
             JSONObject navio = navios.getJSONObject(i);
             JSONArray posicoes = navio.getJSONArray("posicoes");
-
             for (int j = 0; j < posicoes.length(); j++) {
                 JSONArray posicao = posicoes.getJSONArray(j);
                 int linha = posicao.getInt(0);
@@ -34,41 +30,7 @@ public class Tabuleiro {
         }
     }
 
-    // Atualiza com base no arquivo JSON do adversário
-    public char atualizarComBaseNoArquivo(int linha, int coluna, String arquivoAdversario) {
-        // Lê o arquivo JSON do adversário (exemplo: "navios_adversario.json")
-        JSONArray naviosAdversario = carregarJSON("ArquivoAdversario.json");
-
-        for (int i = 0; i < naviosAdversario.length(); i++) {
-            JSONObject navio = naviosAdversario.getJSONObject(i);
-            JSONArray posicoes = navio.getJSONArray("posicoes");
-
-            for (int j = 0; j < posicoes.length(); j++) {
-                JSONArray posicao = posicoes.getJSONArray(j);
-                if (posicao.getInt(0) == linha && posicao.getInt(1) == coluna) {
-                    grade[linha][coluna] = 'X'; // Acertou navio
-                    return 'X';
-                }
-            }
-        }
-
-        grade[linha][coluna] = 'Y'; // Acertou água
-        return 'Y';
-    }
-
-    // Verifica se todos os navios foram afundados
-    public boolean todosNaviosAfundados() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (grade[i][j] == 'N') {
-                    return false; // Ainda há partes de navio
-                }
-            }
-        }
-        return true;
-    }
-
-    // Exibe o tabuleiro no console
+    // Método para exibir o tabuleiro no terminal
     public void exibirTabuleiro(String titulo) {
         System.out.println("\n" + titulo);
         System.out.print("   ");
@@ -90,32 +52,38 @@ public class Tabuleiro {
         }
     }
 
-    // Processa o ataque no tabuleiro
+    // Método para processar o ataque, indicando se acertou ou errou
     public char processarAtaque(int linha, int coluna) {
         if (grade[linha][coluna] == 'N') {
-            grade[linha][coluna] = 'X'; // Acertou navio
+            grade[linha][coluna] = 'X'; // Acertou um navio
             return 'X';
         } else if (grade[linha][coluna] == ' ') {
             grade[linha][coluna] = 'Y'; // Acertou água
             return 'Y';
         }
-        return grade[linha][coluna]; // Caso já tenha sido atacado
+        return grade[linha][coluna]; // Se já foi atacado
     }
 
-    public static JSONArray carregarJSON(String nomeArquivo) {
-        StringBuilder conteudo = new StringBuilder();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                conteudo.append(linha);
+    // Método para verificar se todos os navios foram afundados
+    public boolean todosNaviosAfundados() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (grade[i][j] == 'N') {
+                    return false; // Ainda há partes de navio
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Erro ao carregar arquivo JSON: " + nomeArquivo);
         }
+        return true;
+    }
 
-        // Retorna o JSONArray a partir do conteúdo do arquivo
-        return new JSONArray(conteudo.toString());
+    // Método para carregar o arquivo JSON de posições de navios
+    private JSONArray carregarJSON(String nomeArquivo) {
+        try {
+            String content = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(nomeArquivo)));
+            return new JSONArray(content);
+        } catch (Exception e) {
+            System.out.println("Erro ao carregar o arquivo JSON: " + e.getMessage());
+            return new JSONArray();
+        }
     }
 }
