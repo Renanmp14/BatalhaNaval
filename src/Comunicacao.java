@@ -50,7 +50,7 @@ public class Comunicacao {
     public void receiveFile(String saveDirectory) throws IOException {
         // Lê o nome do arquivo enviado
         //String fileName = reader.readLine();
-        String fileName = "ArquivoAdversario";
+        String fileName = "ArquivoAdversario.json";
 
         // Cria o arquivo no diretório de destino
         File file = new File(saveDirectory, fileName);
