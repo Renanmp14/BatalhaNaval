@@ -46,97 +46,70 @@ public class Main {
             }
 
 
+            // Criar tabuleiros para servidor e cliente
+            Tabuleiro tabuleiro = new Tabuleiro(false);  // false pois o adversário não deve ver os navios
+            tabuleiro.carregarTabuleiroDeJSON(arquivo);  // Carrega a tabela de navios
 
+            Tabuleiro tabuleiroAdversario = new Tabuleiro(true);  // true pois o servidor/cliente verá os navios do adversário
+            tabuleiroAdversario.carregarTabuleiroDeJSON(arquivoAdversario);
 
-//            new Thread(() -> {
-//                while (running) {
-//                    try {
-//                        String message = comunicacao.receiveMessage();
-//                        if (message != null) {
-//                            System.out.println("Recebido: " + message);
-//                        }
-//                    } catch (Exception e) {
-//                        System.out.println("Conexão encerrada.");
-//                        break;
-//                    }
-//                }
-//            }).start();
-//            while (running) {
-//                String message = scanner.nextLine();
-//                if (message.equalsIgnoreCase("exit")) {
-//                    running = false;
-//                    break;
-//                }
-//                comunicacao.sendMessage(message);
-//            }
+            // A thread para receber ataques
+            new Thread(() -> {
+                while (running) {
+                    try {
+                        String message = comunicacao.receiveMessage();
+                        if (message != null) {
+                            System.out.println("Ataque recebido na posição: " + message);
+                            String[] pos = message.split(" ");
+                            int linha = Integer.parseInt(pos[0]);
+                            int coluna = Integer.parseInt(pos[1]);
+                            char resultado = pos[2].charAt(0);
 
-            // Inicializa tabuleiros
-            Tabuleiro meuTabuleiro = new Tabuleiro(true);
-            meuTabuleiro.carregarTabuleiroDeJSON(arquivo);
+                            // Atualiza o tabuleiro do adversário após receber o ataque
+                            tabuleiroAdversario.processarAtaque(linha, coluna);
 
-            Tabuleiro tabuleiroAdversario = new Tabuleiro(false);
+                            // Exibe os tabuleiros após o ataque
+                            tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
 
-            // Exibe tabuleiros iniciais
-            meuTabuleiro.exibirTabuleiro("Seu Tabuleiro");
-            tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
-
-            boolean minhaVez = isServer; // Servidor começa atacando
-
-            // Lógica principal do jogo
-            while (running) {
-                if (minhaVez) {
-                    // Turno do jogador local
-                    System.out.println("\nSua vez! Informe o ataque (exemplo: 09):");
-                    String ataque = scanner.nextLine();
-
-                    // Envia ataque ao adversário
-                    comunicacao.sendMessage(ataque);
-
-                    // Atualiza o tabuleiro do adversário localmente
-                    int linha = Character.getNumericValue(ataque.charAt(0));
-                    int coluna = Character.getNumericValue(ataque.charAt(1));
-                    char resultado = tabuleiroAdversario.atualizarComBaseNoArquivo(linha, coluna, arquivoAdversario);
-
-                    // Exibe tabuleiros atualizados
-                    meuTabuleiro.exibirTabuleiro("Seu Tabuleiro");
-                    tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
-
-                    // Verifica se venceu
-                    if (tabuleiroAdversario.todosNaviosAfundados()) {
-                        System.out.println("Parabéns! Você venceu!");
-                        break;
-                    }
-                } else {
-                    // Turno do adversário
-                    System.out.println("\nAguardando ataque do adversário...");
-                    String ataque = comunicacao.receiveMessage();
-
-                    // Processa o ataque recebido
-                    int linha = Character.getNumericValue(ataque.charAt(0));
-                    int coluna = Character.getNumericValue(ataque.charAt(1));
-                    char resultado = meuTabuleiro.processarAtaque(linha, coluna);
-
-                    // Atualiza o tabuleiro localmente
-                    System.out.println("Adversário atacou (" + linha + ", " + coluna + "): " +
-                            (resultado == 'X' ? "Acertou um navio!" : "Acertou água!"));
-
-                    // Envia resposta do ataque
-                    comunicacao.sendMessage(String.valueOf(resultado));
-
-                    // Exibe tabuleiros atualizados
-                    meuTabuleiro.exibirTabuleiro("Seu Tabuleiro");
-                    tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
-
-                    // Verifica se perdeu
-                    if (meuTabuleiro.todosNaviosAfundados()) {
-                        System.out.println("Que pena, você perdeu!");
+                            // Envia a confirmação do ataque de volta
+                            comunicacao.sendMessage(linha + " " + coluna + " " + resultado);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Conexão encerrada.");
                         break;
                     }
                 }
+            }).start();
 
-                // Alterna a vez
-                minhaVez = !minhaVez;
+            // Loop principal para o envio de ataques
+            while (running) {
+                String message = scanner.nextLine();
+                if (message.equalsIgnoreCase("exit")) {
+                    running = false;
+                    break;
+                }
+
+                String[] pos = message.split(" ");
+                int linha = Integer.parseInt(pos[0]);
+                int coluna = Integer.parseInt(pos[1]);
+
+                // Processa o ataque e envia
+                char resultado = tabuleiro.processarAtaque(linha, coluna);
+                comunicacao.sendMessage(linha + " " + coluna + " " + resultado);
+
+                // Atualiza o tabuleiro do jogador após o ataque
+                tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
+
+                // Atualiza o tabuleiro do adversário na tela
+                tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
+
+                // Verifica se o jogo acabou
+                if (tabuleiroAdversario.todosNaviosAfundados()) {
+                    System.out.println("Você venceu!");
+                    running = false;
+                }
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
