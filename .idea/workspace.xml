@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="correção no json 2">
-      <change beforePath="$PROJECT_DIR$/src/PosicaoNavio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PosicaoNavio.java" afterDir="false" />
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="correção no json 3">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +56,8 @@
     "onboarding.tips.debug.path": "/Users/renanpereira/Desktop/Clone Projeto/Jogo Batalha Naval/src/Main.java",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.language"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -107,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731891305940</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="correção no json 3">
+      <option name="closed" value="true" />
+      <created>1731891684229</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731891684229</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -127,6 +137,7 @@
     <MESSAGE value="primeiro teste de troca de arquivos json" />
     <MESSAGE value="correção no json e no envio do cliente" />
     <MESSAGE value="correção no json 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="correção no json 2" />
+    <MESSAGE value="correção no json 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="correção no json 3" />
   </component>
 </project>

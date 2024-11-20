@@ -33,7 +33,7 @@ public class Comunicacao {
         }
 
         // Envia o nome do arquivo
-        writer.println(file.getName());
+       // writer.println(file.getName());
 
         // Envia o conteúdo do arquivo
         BufferedReader fileReader = new BufferedReader(new FileReader(file));
@@ -49,7 +49,8 @@ public class Comunicacao {
     // Recebe um arquivo e o salva no caminho especificado
     public void receiveFile(String saveDirectory) throws IOException {
         // Lê o nome do arquivo enviado
-        String fileName = reader.readLine();
+        //String fileName = reader.readLine();
+        String fileName = "ArquivoAdversario";
 
         // Cria o arquivo no diretório de destino
         File file = new File(saveDirectory, fileName);
