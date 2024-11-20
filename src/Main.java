@@ -13,8 +13,8 @@ public class Main {
         String arquivo = "navios_" + ipMaquina + ".json";
         String arquivoAdversario = "ArquivoAdversario.json";
 
-        Tabuleiro tabuleiro = new Tabuleiro(false);
-        Tabuleiro tabuleiroAdversario = new Tabuleiro(true);
+        Tabuleiro tabuleiro = new Tabuleiro(true);
+        Tabuleiro tabuleiroAdversario = new Tabuleiro(false);
         String[] meusNavios = new String[10]; // Array para armazenar posições dos navios
         String[] adversarioNavio = new String[10]; // Array para o navio do adversário
         String[] envioAtaque = new String[100]; // Array para armazenar ataques enviados
@@ -108,6 +108,28 @@ public class Main {
                     running = false;
                 }
             }
+
+            //            new Thread(() -> {
+//                while (running) {
+//                    try {
+//                        String message = comunicacao.receiveMessage();
+//                        if (message != null) {
+//                            System.out.println("Recebido: " + message);
+//                        }
+//                    } catch (Exception e) {
+//                        System.out.println("Conexão encerrada.");
+//                        break;
+//                    }
+//                }
+//            }).start();
+//            while (running) {
+//                String message = scanner.nextLine();
+//                if (message.equalsIgnoreCase("exit")) {
+//                    running = false;
+//                    break;
+//                }
+//                comunicacao.sendMessage(message);
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();
