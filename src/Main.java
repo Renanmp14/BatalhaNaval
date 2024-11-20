@@ -95,6 +95,8 @@ public class Main {
                 int linha = Integer.parseInt(pos[0]);
                 int coluna = Integer.parseInt(pos[1]);
                 char resultado = tabuleiro.processarAtaque(linha, coluna);
+
+
                 envioAtaque[linha * 10 + coluna] = message; // Armazena o ataque enviado
                 comunicacao.sendMessage(linha + " " + coluna + " " + resultado);
                 tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");

@@ -15,7 +15,7 @@ public class Tabuleiro {
         }
     }
 
-    // Método para carregar o tabuleiro do arquivo JSON
+    // Método para carregar o tabuleiro do JSON
     public void carregarTabuleiroDeJSON(String nomeArquivo) {
         JSONArray navios = carregarJSON(nomeArquivo);
         for (int i = 0; i < navios.length(); i++) {
@@ -25,12 +25,12 @@ public class Tabuleiro {
                 JSONArray posicao = posicoes.getJSONArray(j);
                 int linha = posicao.getInt(0);
                 int coluna = posicao.getInt(1);
-                grade[linha][coluna] = 'N'; // Marca as posições dos navios com 'N'
+                grade[linha][coluna] = 'N'; // Marca as posições dos navios
             }
         }
     }
 
-    // Método para exibir o tabuleiro no terminal
+    // Exibe o tabuleiro no terminal
     public void exibirTabuleiro(String titulo) {
         System.out.println("\n" + titulo);
         System.out.print("   ");
@@ -43,7 +43,7 @@ public class Tabuleiro {
             System.out.print(i + " ");
             for (int j = 0; j < 10; j++) {
                 if (grade[i][j] == 'N' && !mostrarNavios) {
-                    System.out.print("[ ]"); // Oculta os navios no tabuleiro adversário
+                    System.out.print("[ ]"); // Exibe posições do adversário como vazias
                 } else {
                     System.out.print("[" + grade[i][j] + "]");
                 }
