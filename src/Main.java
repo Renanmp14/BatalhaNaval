@@ -60,6 +60,7 @@ public class Main {
             tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
             tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
 
+            /*
             // Thread para receber ataques
             new Thread(() -> {
                 while (running) {
@@ -108,28 +109,29 @@ public class Main {
                     running = false;
                 }
             }
+            */
 
-            //            new Thread(() -> {
-//                while (running) {
-//                    try {
-//                        String message = comunicacao.receiveMessage();
-//                        if (message != null) {
-//                            System.out.println("Recebido: " + message);
-//                        }
-//                    } catch (Exception e) {
-//                        System.out.println("Conexão encerrada.");
-//                        break;
-//                    }
-//                }
-//            }).start();
-//            while (running) {
-//                String message = scanner.nextLine();
-//                if (message.equalsIgnoreCase("exit")) {
-//                    running = false;
-//                    break;
-//                }
-//                comunicacao.sendMessage(message);
-//            }
+            new Thread(() -> {
+               while (running) {
+                   try {
+                      String message = comunicacao.receiveMessage();
+                        if (message != null) {
+                            System.out.println("Recebido: " + message);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Conexão encerrada.");
+                       break;
+                    }
+               }
+           }).start();
+           while (running) {
+               String message = scanner.nextLine();
+               if (message.equalsIgnoreCase("exit")) {
+                   running = false;
+                   break;
+               }
+              comunicacao.sendMessage(message);
+           }
 
         } catch (Exception e) {
             e.printStackTrace();

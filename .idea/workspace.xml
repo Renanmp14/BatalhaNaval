@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="troca no tabuleiro">
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="O tabuleiro está apresentando de forma correta. A troca de mensagens e atualização do tabuleiro não está correta">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732127122166</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="O tabuleiro está apresentando de forma correta. A troca de mensagens e atualização do tabuleiro não está correta">
+      <option name="closed" value="true" />
+      <created>1732127902449</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732127902449</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,7 +190,8 @@
     <MESSAGE value="Troca na comunicação no jogo e na exibiçao quando servidor" />
     <MESSAGE value="Teste do jogo 2" />
     <MESSAGE value="troca no tabuleiro" />
-    <option name="LAST_COMMIT_MESSAGE" value="troca no tabuleiro" />
+    <MESSAGE value="O tabuleiro está apresentando de forma correta. A troca de mensagens e atualização do tabuleiro não está correta" />
+    <option name="LAST_COMMIT_MESSAGE" value="O tabuleiro está apresentando de forma correta. A troca de mensagens e atualização do tabuleiro não está correta" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -197,31 +205,6 @@
           <url>file://$PROJECT_DIR$/src/Main.java</url>
           <line>18</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
