@@ -89,4 +89,8 @@ public class Comunicacao {
             e.printStackTrace();
         }
     }
+
+    public boolean vefificadorMensagem (String numero){
+        return numero.matches("\\d{2}");
+    }
 }

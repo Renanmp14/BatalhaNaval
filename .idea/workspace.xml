@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="O tabuleiro está apresentando de forma correta. A troca de mensagens e atualização do tabuleiro não está correta">
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Teste de retomada de comunicação">
+      <change afterPath="$PROJECT_DIR$/src/Batalha.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comunicacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comunicacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tabuleiro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tabuleiro.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732127902449</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Teste de retomada de comunicação">
+      <option name="closed" value="true" />
+      <created>1732314067012</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732314067012</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,22 +203,7 @@
     <MESSAGE value="Teste do jogo 2" />
     <MESSAGE value="troca no tabuleiro" />
     <MESSAGE value="O tabuleiro está apresentando de forma correta. A troca de mensagens e atualização do tabuleiro não está correta" />
-    <option name="LAST_COMMIT_MESSAGE" value="O tabuleiro está apresentando de forma correta. A troca de mensagens e atualização do tabuleiro não está correta" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>17</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Teste de retomada de comunicação" />
+    <option name="LAST_COMMIT_MESSAGE" value="Teste de retomada de comunicação" />
   </component>
 </project>

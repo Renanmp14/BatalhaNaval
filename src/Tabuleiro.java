@@ -25,7 +25,7 @@ public class Tabuleiro {
                 JSONArray posicao = posicoes.getJSONArray(j);
                 int linha = posicao.getInt(0);
                 int coluna = posicao.getInt(1);
-                grade[linha][coluna] = 'N'; // Marca as posições dos navios
+                grade[linha][coluna] = '*'; // Marca as posições dos navios
             }
         }
     }
@@ -42,7 +42,7 @@ public class Tabuleiro {
         for (int i = 0; i < 10; i++) {
             System.out.print(i + " ");
             for (int j = 0; j < 10; j++) {
-                if (grade[i][j] == 'N' && !mostrarNavios) {
+                if (grade[i][j] == '*' && !mostrarNavios) {
                     System.out.print("[ ]"); // Exibe posições do adversário como vazias
                 } else {
                     System.out.print("[" + grade[i][j] + "]");
@@ -50,30 +50,6 @@ public class Tabuleiro {
             }
             System.out.println();
         }
-    }
-
-    // Método para processar o ataque, indicando se acertou ou errou
-    public char processarAtaque(int linha, int coluna) {
-        if (grade[linha][coluna] == 'N') {
-            grade[linha][coluna] = 'X'; // Acertou um navio
-            return 'X';
-        } else if (grade[linha][coluna] == ' ') {
-            grade[linha][coluna] = 'Y'; // Acertou água
-            return 'Y';
-        }
-        return grade[linha][coluna]; // Se já foi atacado
-    }
-
-    // Método para verificar se todos os navios foram afundados
-    public boolean todosNaviosAfundados() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (grade[i][j] == 'N') {
-                    return false; // Ainda há partes de navio
-                }
-            }
-        }
-        return true;
     }
 
     // Método para carregar o arquivo JSON de posições de navios
@@ -86,4 +62,22 @@ public class Tabuleiro {
             return new JSONArray();
         }
     }
+
+    public void atualizacaoStausTabela (String posicao, String simbolo){
+        if (posicao.length() != 2) {
+            System.out.println("Erro: Posição inválida.");
+            return;
+        }
+
+        int linha = Character.getNumericValue(posicao.charAt(0));
+        int coluna = Character.getNumericValue(posicao.charAt(1));
+
+        if (linha < 0 || linha >= 10 || coluna < 0 || coluna >= 10) {
+            System.out.println("Erro: Posição fora dos limites do tabuleiro.");
+            return;
+        }
+
+        grade[linha][coluna] = simbolo.charAt(0);
+    }
+
 }

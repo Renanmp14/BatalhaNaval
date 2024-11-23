@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 import org.json.JSONArray;
 
@@ -9,16 +9,17 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Comunicacao comunicacao = new Comunicacao();
+        Batalha batalha = new Batalha();
         String ipMaquina = "192.168.0.211";
         String arquivo = "navios_" + ipMaquina + ".json";
         String arquivoAdversario = "ArquivoAdversario.json";
 
         Tabuleiro tabuleiro = new Tabuleiro(true);
         Tabuleiro tabuleiroAdversario = new Tabuleiro(false);
-        String[] meusNavios = new String[10]; // Array para armazenar posições dos navios
-        String[] adversarioNavio = new String[10]; // Array para o navio do adversário
-        String[] envioAtaque = new String[100]; // Array para armazenar ataques enviados
-        String[] envioAdversario = new String[100]; // Array para armazenar ataques recebidos
+
+        List<String> tiroAdversario = new ArrayList<>();
+        List<String> tiroAtaque = new ArrayList<>();
+
 
         try {
             System.out.println("Digite 'server' para iniciar como servidor ou 'client' para conectar:");
@@ -53,70 +54,46 @@ public class Main {
                 return;
             }
 
+            //Criar uam explicação sobre o jogo
+
 
             // Carregar e exibir os tabuleiros após o envio dos arquivos
             tabuleiro.carregarTabuleiroDeJSON(arquivo);
             tabuleiroAdversario.carregarTabuleiroDeJSON(arquivoAdversario);
             tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
             tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
+            List<String> minhasPosições = batalha.extrairPosicoes(arquivo);
+            List<String> adversarioPosições = batalha.extrairPosicoes(arquivoAdversario);
 
-            /*
-            // Thread para receber ataques
-            new Thread(() -> {
-                while (running) {
-                    try {
-                        String message = comunicacao.receiveMessage();
-                        if (message != null) {
-                            System.out.println("Ataque recebido na posição: " + message);
-                            String[] pos = message.split(" ");
-                            int linha = Integer.parseInt(pos[0]);
-                            int coluna = Integer.parseInt(pos[1]);
-                            char resultado = pos[2].charAt(0);
-                            envioAdversario[linha * 10 + coluna] = message; // Armazena a posição atacada
-                            tabuleiroAdversario.processarAtaque(linha, coluna);
-                            tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
-                            comunicacao.sendMessage(linha + " " + coluna + " " + resultado); // Envia resultado
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Conexão encerrada.");
-                        break;
-                    }
-                }
-            }).start();
-
-            // Loop para envio de ataques
-            while (running) {
-                String message = scanner.nextLine();
-                if (message.equalsIgnoreCase("exit")) {
-                    running = false;
-                    break;
-                }
-
-                String[] pos = message.split(" ");
-                int linha = Integer.parseInt(pos[0]);
-                int coluna = Integer.parseInt(pos[1]);
-                char resultado = tabuleiro.processarAtaque(linha, coluna);
-
-
-                envioAtaque[linha * 10 + coluna] = message; // Armazena o ataque enviado
-                comunicacao.sendMessage(linha + " " + coluna + " " + resultado);
-                tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
-                tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
-
-                // Verifica se o jogo acabou
-                if (tabuleiroAdversario.todosNaviosAfundados()) {
-                    System.out.println("Você venceu!");
-                    running = false;
-                }
-            }
-            */
 
             new Thread(() -> {
+
                while (running) {
                    try {
                       String message = comunicacao.receiveMessage();
                         if (message != null) {
                             System.out.println("Recebido: " + message);
+                            boolean verificador = comunicacao.vefificadorMensagem(message);
+                            if (verificador == true) {
+                                tiroAdversario.add(message);
+                                boolean status1 = batalha.tiroComparaPosicao(minhasPosições, tiroAdversario);
+
+                                if (status1 == true) {
+                                    System.out.println("Todas as posições atingidas. Você perdeu!");
+                                    System.out.println("Precione escreva 'exit' para sair!!");
+                                }
+                                if (status1 == false) {
+                                    //System.out.println("Jogo continua");
+                                    //colocar as atualizações de tabela
+                                    String info = batalha.respostaTiro(minhasPosições, message);
+                                    tabuleiro.atualizacaoStausTabela(message,info);
+                                    tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
+                                    tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
+
+                                }
+                            }else{
+                                System.out.println("Mensagem Ignorada pelas regras do Jogo!!");
+                            }
                         }
                     } catch (Exception e) {
                         System.out.println("Conexão encerrada.");
@@ -130,7 +107,27 @@ public class Main {
                    running = false;
                    break;
                }
-              comunicacao.sendMessage(message);
+               boolean verificador = comunicacao.vefificadorMensagem(message);
+               if (verificador == true) {
+                   comunicacao.sendMessage(message);
+                   tiroAtaque.add(message);
+                   boolean status2 = batalha.tiroComparaPosicao(adversarioPosições, tiroAtaque);
+
+                   if (status2 == true) {
+                       System.out.println("Todas as posições atingidas. Você Ganhou, Vamos Caralho!");
+                       System.out.println("Precione escreva 'exit' para sair!!");
+                   }
+                   if (status2 == false){
+                       //colocar as atualizações de tabela
+                       String info = batalha.respostaTiro(adversarioPosições, message);
+                       tabuleiroAdversario.atualizacaoStausTabela(message,info);
+                       tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
+                       tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
+                   }
+               }
+               else{
+                   System.out.println("Mensagem fora do padrão, não será enviada");
+               }
            }
 
         } catch (Exception e) {
