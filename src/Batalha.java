@@ -60,12 +60,21 @@ public class Batalha {
     }
 
     public String respostaTiro (List<String> lista1,String posicao){
+       String linhaColuna = linhaColuna(posicao);
         for (String elemento : lista1){
             if(posicao.contains(elemento)){
+                System.out.println("Tiro acertado com êxito o navio: " + linhaColuna);
                 return "X";
             }
         }
+        System.out.println("Tiro Errado: " + linhaColuna);
         return "A";
     }
+    private String linhaColuna (String posicao){
 
+        int linha = Character.getNumericValue(posicao.charAt(0));
+        int coluna = Character.getNumericValue(posicao.charAt(1));
+
+        return "Linha: " + linha + " Coluna: " + coluna;
+    }
 }
