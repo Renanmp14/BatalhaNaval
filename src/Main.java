@@ -72,7 +72,7 @@ public class Main {
 
                while (running) {
                    try {
-                       //if (!isMyTurn) {
+                       if (!isMyTurn) {
                            String message = comunicacao.receiveMessage();
                            if (message != null) {
                                System.out.println("Recebido: " + message);
@@ -99,10 +99,11 @@ public class Main {
                                } else {
                                    System.out.println("Mensagem Ignorada pelas regras do Jogo!!");
                                }
+                               isMyTurn = true;
                            }
-                       //}
+                       }
                        else{
-                           System.out.println("Aguarde sua Vez");
+                               Thread.sleep(100);
                        }
                     } catch (Exception e) {
                         System.out.println("Conexão encerrada.");
@@ -111,8 +112,8 @@ public class Main {
                }
            }).start();
            while (running) {
-               if (scanner.hasNextLine()) {
-                   //System.out.println("Envie a posição de tiro: ");
+               if (isMyTurn) {
+                   System.out.println("Envie a posição de tiro: ");
                    String message = scanner.nextLine();
                    if (message.equalsIgnoreCase("exit")) {
                        running = false;
@@ -139,6 +140,13 @@ public class Main {
                        }
                    } else {
                        System.out.println("Mensagem fora do padrão, não será enviada");
+                   }
+               }else {
+                   System.out.println("Aguarde sua vez...");
+                   try {
+                       Thread.sleep(100); // Evite sobrecarga no loop
+                   } catch (InterruptedException e) {
+                       Thread.currentThread().interrupt();
                    }
                }
            }
