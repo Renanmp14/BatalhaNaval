@@ -69,82 +69,77 @@ public class Main {
 
 
             new Thread(() -> {
+
                 while (running) {
                     try {
-                        if (!isMyTurn) {
-                            String message = comunicacao.receiveMessage();
-                            if (message != null) {
-                                if (message.equals("END_TURN")) {
-                                    isMyTurn = true;
-                                    System.out.println("Sua vez de jogar!");
-                                    continue;
+                        //if (!isMyTurn) {
+                        String message = comunicacao.receiveMessage();
+                        if (message != null) {
+                            System.out.println("Recebido: " + message);
+                            boolean verificador = comunicacao.vefificadorMensagem(message);
+                            if (verificador == true) {
+                                tiroAdversario.add(message);
+                                boolean status1 = batalha.tiroComparaPosicao(minhasPosições, tiroAdversario);
+
+                                if (status1 == true) {
+                                    System.out.println("Todas as posições atingidas. Você perdeu!");
+                                    //System.out.println("Precione escreva 'exit' para sair!!");
+                                    running = false;
+                                    break;
                                 }
-
-                                System.out.println("Recebido: " + message);
-                                boolean verificador = comunicacao.vefificadorMensagem(message);
-
-                                if (verificador) {
-                                    tiroAdversario.add(message);
-                                    boolean status1 = batalha.tiroComparaPosicao(minhasPosições, tiroAdversario);
-
-                                    if (status1) {
-                                        System.out.println("Todas as posições atingidas. Você perdeu!");
-                                        running = false;
-                                        break;
-                                    }
-
+                                if (status1 == false) {
+                                    //System.out.println("Jogo continua");
+                                    //colocar as atualizações de tabela
                                     String info = batalha.respostaTiro(minhasPosições, message);
                                     tabuleiro.atualizacaoStausTabela(message, info);
                                     tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
-                                } else {
-                                    System.out.println("Mensagem inválida recebida!");
+                                    tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
+
                                 }
+                            } else {
+                                System.out.println("Mensagem Ignorada pelas regras do Jogo!!");
                             }
-                        } else {
-                            Thread.sleep(100); // Evitar consumo excessivo de CPU
+                        }
+                        //}
+                        else{
+                            System.out.println("Aguarde sua Vez");
                         }
                     } catch (Exception e) {
-                        System.out.println("Erro na recepção: " + e.getMessage());
-                        running = false;
+                        System.out.println("Conexão encerrada.");
+                        break;
                     }
                 }
             }).start();
-
             while (running) {
-                if (isMyTurn) {
+                if (scanner.hasNextLine()) {
                     System.out.println("Envie a posição de tiro: ");
                     String message = scanner.nextLine();
                     if (message.equalsIgnoreCase("exit")) {
                         running = false;
                         break;
                     }
-
                     boolean verificador = comunicacao.vefificadorMensagem(message);
-                    if (verificador) {
+                    if (verificador == true) {
                         comunicacao.sendMessage(message);
                         tiroAtaque.add(message);
-
                         boolean status2 = batalha.tiroComparaPosicao(adversarioPosições, tiroAtaque);
-                        if (status2) {
-                            System.out.println("Você ganhou! Todas as posições inimigas foram atingidas.");
+
+                        if (status2 == true) {
+                            System.out.println("Todas as posições atingidas. Você Ganhou, Vamos Caralho!");
+                            //System.out.println("Precione escreva 'exit' para sair!!");
                             running = false;
                             break;
                         }
-
-                        String info = batalha.respostaTiro(adversarioPosições, message);
-                        tabuleiroAdversario.atualizacaoStausTabela(message, info);
-                        tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
-                        tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
-
-                        // Turno encerrado
-                        isMyTurn = false;
-                        comunicacao.sendMessage("END_TURN");
+                        if (status2 == false) {
+                            //colocar as atualizações de tabela
+                            String info = batalha.respostaTiro(adversarioPosições, message);
+                            tabuleiroAdversario.atualizacaoStausTabela(message, info);
+                            tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
+                            tabuleiroAdversario.exibirTabuleiro("Tabuleiro do Adversário");
+                        }
                     } else {
-                        System.out.println("Mensagem inválida. Tente novamente.");
+                        System.out.println("Mensagem fora do padrão, não será enviada");
                     }
-                } else {
-                    System.out.println("Aguarde sua vez...");
-                    Thread.sleep(100);
                 }
             }
 
@@ -155,4 +150,4 @@ public class Main {
             comunicacao.closeConnection();
         }
     }
-} //enviocco
+}
