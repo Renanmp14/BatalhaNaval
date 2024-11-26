@@ -111,8 +111,8 @@ public class Main {
                }
            }).start();
            while (running) {
-               //if (isMyTurn) {
-                   System.out.println("Envie a posição de tiro: ");
+               if (scanner.hasNextLine()) {
+                   //System.out.println("Envie a posição de tiro: ");
                    String message = scanner.nextLine();
                    if (message.equalsIgnoreCase("exit")) {
                        running = false;
@@ -141,11 +141,12 @@ public class Main {
                        System.out.println("Mensagem fora do padrão, não será enviada");
                    }
                }
-           //}
+           }
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            System.out.println("Conexão encerrada.");
             comunicacao.closeConnection();
         }
     }

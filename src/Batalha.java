@@ -63,7 +63,7 @@ public class Batalha {
        String linhaColuna = linhaColuna(posicao);
         for (String elemento : lista1){
             if(posicao.contains(elemento)){
-                System.out.println("Tiro acertado com êxito o navio: " + linhaColuna);
+                System.out.println("Tiro acertado com êxito: " + linhaColuna);
                 return "X";
             }
         }
