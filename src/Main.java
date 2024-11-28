@@ -5,7 +5,7 @@ import org.json.JSONArray;
 public class Main {
     private static final int PORT = 8080;
     private static boolean running = true;
-    private static boolean isMyTurn;
+    //private static boolean isMyTurn;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -14,6 +14,7 @@ public class Main {
         String ipMaquina = "192.168.0.211";
         String arquivo = "navios_" + ipMaquina + ".json";
         String arquivoAdversario = "ArquivoAdversario.json";
+        String arquivoParaEnvio = "arquivoForme.json";
 
         Tabuleiro tabuleiro = new Tabuleiro(true);
         Tabuleiro tabuleiroAdversario = new Tabuleiro(false);
@@ -31,11 +32,12 @@ public class Main {
             if (isServer) {
                 comunicacao.startServer(PORT);
 
-                isMyTurn = true;
+                //isMyTurn = true;
                 JSONArray naviosServer = PosicaoNavio.gerarPosicoesNavios();
+                PosicaoNavio.salvaTemp(naviosServer,arquivoParaEnvio);
                 PosicaoNavio.salvarNaviosEmJSON(naviosServer, arquivo);
 
-                comunicacao.sendFile(arquivo);
+                comunicacao.sendFile(arquivoParaEnvio);
                 comunicacao.receiveFile(".");
                 System.out.println("Arquivos trocados! Iniciando troca de mensagens...");
 

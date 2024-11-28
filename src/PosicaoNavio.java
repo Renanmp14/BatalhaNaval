@@ -103,6 +103,17 @@ public class PosicaoNavio {
         }
     }
 
+    public static void salvaTemp(JSONArray naviosArray, String caminhoArquivo){
+        try (FileWriter file = new FileWriter(caminhoArquivo)) {
+            //String jsonFormatado = formatarJSON(naviosArray);
+            String jsonFormatadoString = naviosArray.toString();
+            file.write(jsonFormatadoString);
+            //System.out.println("Arquivo JSON salvo como: " + caminhoArquivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static String formatarJSON(JSONArray naviosArray) {
         StringBuilder builder = new StringBuilder();
         builder.append("[\n");
