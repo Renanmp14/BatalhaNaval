@@ -32,13 +32,13 @@ public class Main {
             if (isServer) {
                 comunicacao.startServer(PORT);
 
-                //isMyTurn = true;
                 JSONArray naviosServer = PosicaoNavio.gerarPosicoesNavios();
                 PosicaoNavio.salvaTemp(naviosServer,arquivoParaEnvio);
                 PosicaoNavio.salvarNaviosEmJSON(naviosServer, arquivo);
 
                 comunicacao.sendFile(arquivoParaEnvio);
                 comunicacao.receiveFile(".");
+                comunicacao.deletarArquivo(arquivoParaEnvio);
                 System.out.println("Arquivos trocados! Iniciando troca de mensagens...");
 
             } else if (mode.equalsIgnoreCase("client")) {
@@ -49,17 +49,16 @@ public class Main {
                 comunicacao.receiveFile(".");
 
                 JSONArray naviosCliente = PosicaoNavio.gerarPosicoesNavios();
+                PosicaoNavio.salvaTemp(naviosCliente,arquivoParaEnvio);
                 PosicaoNavio.salvarNaviosEmJSON(naviosCliente,arquivo);
-                comunicacao.sendFile(arquivo);
+                comunicacao.sendFile(arquivoParaEnvio);
                 System.out.println("Arquivos trocados! Iniciando troca de mensagens...");
+                comunicacao.deletarArquivo(arquivoParaEnvio);
 
             } else {
                 System.out.println("Modo inválido! Use 'server' ou 'client'.");
                 return;
             }
-
-            //Criar uma explicação sobre o jogo
-
 
             // Carregar e exibir os tabuleiros após o envio dos arquivos
             tabuleiro.carregarTabuleiroDeJSON(arquivo);
@@ -74,7 +73,6 @@ public class Main {
 
                 while (running) {
                     try {
-                        //if (!isMyTurn) {
                         String message = comunicacao.receiveMessage();
                         if (message != null) {
                             System.out.println("Recebido: " + message);
@@ -90,8 +88,7 @@ public class Main {
                                     break;
                                 }
                                 if (status1 == false) {
-                                    //System.out.println("Jogo continua");
-                                    //colocar as atualizações de tabela
+                                    //System.out.println("Jogo continua");//colocar as atualizações de tabela
                                     String info = batalha.respostaTiro(minhasPosições, message);
                                     tabuleiro.atualizacaoStausTabela(message, info);
                                     tabuleiro.exibirTabuleiro("Tabuleiro do Jogador");
@@ -102,10 +99,7 @@ public class Main {
                                 System.out.println("Mensagem Ignorada pelas regras do Jogo!!");
                             }
                         }
-                        //}
-                        else{
-                            System.out.println("Aguarde sua Vez");
-                        }
+
                     } catch (Exception e) {
                         System.out.println("Conexão encerrada.");
                         break;
@@ -114,7 +108,7 @@ public class Main {
             }).start();
             while (running) {
                 if (scanner.hasNextLine()) {
-                    System.out.println("Envie a posição de tiro: ");
+                    //System.out.println("Envie a posição de tiro: ");
                     String message = scanner.nextLine();
                     if (message.equalsIgnoreCase("exit")) {
                         running = false;
@@ -148,6 +142,8 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            comunicacao.deletarArquivo(arquivo);
+            comunicacao.deletarArquivo(arquivoAdversario);
             System.out.println("Conexão encerrada.");
             comunicacao.closeConnection();
         }

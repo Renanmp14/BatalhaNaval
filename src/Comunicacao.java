@@ -25,29 +25,6 @@ public class Comunicacao {
         writer = new PrintWriter(socket.getOutputStream(),true);
     }
 
-    /*
-    public void sendFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        if (!file.exists()) {
-            System.out.println("Arquivo não encontrado: " + filePath);
-            return;
-        }
-
-        // Envia o nome do arquivo
-       // writer.println(file.getName());
-
-        // Envia o conteúdo do arquivo
-        BufferedReader fileReader = new BufferedReader(new FileReader(file));
-        String line;
-        while ((line = fileReader.readLine()) != null) {
-            writer.println(line);
-        }
-        //writer.println("EOF");
-        fileReader.close();
-        System.out.println("Arquivo enviado: " + file.getName());
-    }
-    */
-
 
     public void sendFile(String filePath) throws IOException {
         File file = new File(filePath);
@@ -56,68 +33,39 @@ public class Comunicacao {
             return;
         }
 
-        // Envia o nome do arquivo (opcional)
-        // writer.println(file.getName());
-
-        // Envia o conteúdo do arquivo como uma única string
         BufferedReader fileReader = new BufferedReader(new FileReader(file));
         StringBuilder fileContent = new StringBuilder();
         String line;
 
-        // Lê todo o conteúdo do arquivo e acumula na StringBuilder
         while ((line = fileReader.readLine()) != null) {
-            fileContent.append(line); // Acumula as linhas
+            fileContent.append(line);
         }
         fileReader.close();
 
         // Envia o conteúdo inteiro do arquivo em uma única string
         writer.println(fileContent.toString());  // Envia a string completa
 
-        // Exibe uma mensagem de sucesso
         System.out.println("Arquivo enviado: " + file.getName());
     }
 
-    // Recebe um arquivo e o salva no caminho especificado
-    /*
-    public void receiveFile(String saveDirectory) throws IOException {
 
-        String fileName = "ArquivoAdversario.json";
-
-
-        File file = new File(saveDirectory, fileName);
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
-
-        // Lê o conteúdo do arquivo
-        String line;
-        while ((line = reader.readLine()) != null) { //(line = reader.readLine()) != null) //!(line = reader.readLine()).equals("EOF")
-            fileWriter.write(line);
-            fileWriter.newLine();
-        }
-        fileWriter.close();
-        System.out.println("Arquivo recebido e salvo como: " + file.getPath());
-    }
-    */
     public void receiveFile(String saveDirectory) throws IOException {
         String fileName = "ArquivoAdversario.json";
         File file = new File(saveDirectory, fileName);
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-        // StringBuilder para armazenar o conteúdo do arquivo recebido
         StringBuilder fileContent = new StringBuilder();
 
-        // Variável para armazenar as partes do arquivo
         String line;
 
         // Lê o conteúdo do arquivo até que ele tenha a estrutura completa do JSON
-        boolean isJsonComplete = false; // Flag para verificar se o JSON completo foi recebido
+        boolean isJsonComplete = false;
 
         while ((line = reader.readLine()) != null) {
-            // Acumula a linha no conteúdo do arquivo
+
             fileContent.append(line);
 
-            // Verifica se o JSON completo foi recebido
-            // A estrutura básica do JSON é que começa com [{ e termina com }]
-            String content = fileContent.toString().trim();  // Remover espaços extras no começo e final
+            String content = fileContent.toString().trim();
 
             if (content.startsWith("[{") && content.endsWith("}]")) {
                 isJsonComplete = true;
@@ -126,7 +74,6 @@ public class Comunicacao {
         }
 
         if (isJsonComplete) {
-            // Escreve o conteúdo completo no arquivo
             fileWriter.write(fileContent.toString());
             fileWriter.close();
             System.out.println("Arquivo recebido e salvo como: " + file.getPath());
@@ -163,4 +110,15 @@ public class Comunicacao {
     public boolean vefificadorMensagem (String numero){
         return numero.matches("\\d{2}");
     }
+
+    public void deletarArquivo (String arquivo){
+        File file = new File(arquivo);
+        if (file.exists()) {
+            file.delete();
+        }
+        else{
+            System.out.println("Arquivo não encontrada");
+        }
+    }
+
 }
