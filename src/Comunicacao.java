@@ -84,15 +84,19 @@ public class Comunicacao {
 
 
     public void sendMessage(String message){
-        if (writer != null){
+        if (writer != null && !socket.isClosed() && socket.isConnected()){
             writer.println(message);
+        }
+        else{
+            System.out.println("Erro: Conexão Perdida. Mensagem não enviada");
         }
     }
 
     public String receiveMessage() throws IOException{
-        if (reader != null){
+        if (reader != null && !socket.isClosed() && socket.isConnected() && reader != null){
             return reader.readLine();
         }
+        System.out.println("Erro: Conexão Perdida.");
         return null;
     }
 

@@ -5,7 +5,7 @@ import org.json.JSONArray;
 public class Main {
     private static final int PORT = 8080;
     private static boolean running = true;
-    //private static boolean isMyTurn;
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -77,7 +77,7 @@ public class Main {
                         if (message != null) {
                             System.out.println("Recebido: " + message);
                             boolean verificador = comunicacao.vefificadorMensagem(message);
-                            if (verificador == true) {
+                            if (verificador == true) { //verificador == true
                                 tiroAdversario.add(message);
                                 boolean status1 = batalha.tiroComparaPosicao(minhasPosições, tiroAdversario);
 
@@ -115,7 +115,7 @@ public class Main {
                         break;
                     }
                     boolean verificador = comunicacao.vefificadorMensagem(message);
-                    if (verificador == true) {
+                    if (verificador == true) { //verificador == true
                         comunicacao.sendMessage(message);
                         tiroAtaque.add(message);
                         boolean status2 = batalha.tiroComparaPosicao(adversarioPosições, tiroAtaque);

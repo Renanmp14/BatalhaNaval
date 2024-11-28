@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Ajuste no envio de informações trocadas">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="03dcbade-9f27-4c86-af68-d9b761e9dc33" name="Changes" comment="Método de envio e recebimento de informação">
       <change beforePath="$PROJECT_DIR$/src/Comunicacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comunicacao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +236,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732788507481</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Método de envio e recebimento de informação">
+      <option name="closed" value="true" />
+      <created>1732791435072</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1732791435072</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -274,6 +280,7 @@
     <MESSAGE value="Teste De implementação de turnos 3" />
     <MESSAGE value="Funcionamento correto" />
     <MESSAGE value="Ajuste no envio de informações trocadas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajuste no envio de informações trocadas" />
+    <MESSAGE value="Método de envio e recebimento de informação" />
+    <option name="LAST_COMMIT_MESSAGE" value="Método de envio e recebimento de informação" />
   </component>
 </project>
